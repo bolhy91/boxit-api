@@ -6,14 +6,14 @@ import {OrderEntity} from "./Order-entity";
 import {ProductEntity} from "./Product-entity";
 
 export const OrderDetailEntity = sequelize.define(
-    config.tables.orders, {
+    config.tables.orderDetails, {
         id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
         order_id: {
             type: DataTypes.INTEGER, allowNull: false, references: {
                 model: OrderEntity, key: 'id'
             }
         },
-        product: {
+        product_id: {
             type: DataTypes.INTEGER, allowNull: false,
             references: {
                 model: ProductEntity, key: 'id'
