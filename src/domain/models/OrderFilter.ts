@@ -1,7 +1,7 @@
 export class OrderFilter {
     constructor(
-        public user: string
+        public user: string | undefined
     ) {
-        this.user = user
+        this.user = user || undefined
     }
 }

@@ -5,6 +5,7 @@ import {OrderDetailEntity} from "../database/sql/entities/OrderDetail-entity";
 import {OrderDetail} from "../../domain/models/orderDetail";
 import {ProductEntity} from "../database/sql/entities/Product-entity";
 import {Product} from "../../domain/models/product";
+import {model} from "mongoose";
 
 export class OrderMapper implements IMapper<Order, OrderEntity> {
     dtoToDomainOrEntity(model: any): Order | OrderEntity {
@@ -32,7 +33,7 @@ export class OrderMapper implements IMapper<Order, OrderEntity> {
             model.user,
             model.date,
             model.total,
-            this.mapOrderDetail(model.id, model.items),
+            this.mapOrderDetail(model.id, model.orderDetails),
         )
     }
 
@@ -57,5 +58,13 @@ export class OrderMapper implements IMapper<Order, OrderEntity> {
 
     mapProductEntityToProduct(product: ProductEntity) {
         return new Product(product.id, product.name, product.price, product.stock, product.category)
+    }
+
+    updateToEntity(entity: OrderEntity, model: Order): OrderEntity {
+        entity.userId = model.user.id;
+        entity.date = model.date;
+        entity.total = model.total;
+        entity.items = this.mapOrderDetailEntity(entity.id, model.items);
+        return entity;
     }
 }

@@ -1,11 +1,9 @@
-import {Router} from "express";
 import {ProductControllerFactory} from "../../../application/factories/ProductControllerFactory";
+import {AppRoute} from "./AppRoute";
 
-export class ProductRoutes {
-    private readonly route: Router;
-
+export class ProductRoutes extends AppRoute {
     constructor() {
-        this.route = Router();
+        super();
         this.init();
     }
 
@@ -50,9 +48,5 @@ export class ProductRoutes {
                 next(error);
             }
         });
-    }
-
-    public getRouter(): Router {
-        return this.route;
     }
 }

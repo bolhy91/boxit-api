@@ -5,6 +5,7 @@ import {config} from "./infrastructure/config/dotenv";
 import {MongoDatabase} from "./infrastructure/database/mongodb/MongoDatabase";
 import {errorHandler} from "./shared/middlewares/ApiError";
 import {ProductRoutes} from "./infrastructure/adapters/routes/productRoutes";
+import {OrderRoutes} from "./infrastructure/adapters/routes/orderRoutes";
 
 class Server {
     private app: Application;
@@ -29,6 +30,8 @@ class Server {
         });
         const productRoutes = new ProductRoutes();
         this.app.use("/products", productRoutes.getRouter());
+        const orderRoutes = new OrderRoutes();
+        this.app.use("/orders", orderRoutes.getRouter());
     }
 
     listen() {

@@ -14,6 +14,7 @@ export class OrderEntity extends Model {
     @Column({type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true})
     id!: number;
     @Column({
+        field: 'user_id',
         type: DataTypes.INTEGER, allowNull: false, references: {
             model: UserEntity, key: 'id'
         }
