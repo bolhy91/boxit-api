@@ -1,17 +1,24 @@
-import {sequelize} from "../SqlSeverDatabase";
 import {DataTypes} from "sequelize";
-import {config} from "../../../config/dotenv";
 import {UserEntity} from "./User-entity";
+import {Column, Model, Table} from "sequelize-typescript";
+import {config} from "../../../config/dotenv";
 
-export const OrderEntity = sequelize.define(
-    config.tables.orders, {
-        id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-        user_id: {
-            type: DataTypes.INTEGER, allowNull: false, references: {
-                model: UserEntity, key: 'id'
-            }
-        },
-        date: {type: DataTypes.DATE, allowNull: false},
-        total: {type: DataTypes.DOUBLE, allowNull: false},
-    }
-);
+@Table({
+    tableName: config.tables.orders,
+    modelName: 'Order',
+    timestamps: false,
+})
+export class OrderEntity extends Model {
+    @Column({type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true})
+    id!: number;
+    @Column({
+        type: DataTypes.INTEGER, allowNull: false, references: {
+            model: UserEntity, key: 'id'
+        }
+    })
+    userId!: number;
+    @Column({type: DataTypes.DATE, allowNull: false})
+    date!: Date;
+    @Column({type: DataTypes.DOUBLE, allowNull: false})
+    total!: number;
+}

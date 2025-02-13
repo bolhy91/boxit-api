@@ -1,13 +1,26 @@
-import {sequelize} from "../SqlSeverDatabase";
 import {DataTypes} from "sequelize";
+import {Column, Model, Table} from "sequelize-typescript";
 import {config} from "../../../config/dotenv";
 
-export const ProductEntity = sequelize.define(
-    config.tables.products, {
-        id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-        name: {type: DataTypes.STRING, allowNull: false},
-        price: {type: DataTypes.DOUBLE, allowNull: false},
-        stock: {type: DataTypes.INTEGER, allowNull: false},
-        category: {type: DataTypes.STRING, allowNull: false},
-    }
-);
+
+@Table({
+    tableName: config.tables.products,
+    modelName: 'Product',
+    timestamps: false,
+})
+export class ProductEntity extends Model {
+    @Column({type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true})
+    id!: string;
+
+    @Column({type: DataTypes.STRING, allowNull: false})
+    name!: string;
+
+    @Column({type: DataTypes.DOUBLE, allowNull: false})
+    price!: string;
+
+    @Column({type: DataTypes.INTEGER, allowNull: false})
+    stock!: string;
+
+    @Column({type: DataTypes.STRING, allowNull: false})
+    category!: string;
+}

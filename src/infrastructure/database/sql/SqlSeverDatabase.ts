@@ -1,22 +1,35 @@
-import {Sequelize} from "sequelize";
 import {config} from "../../config/dotenv";
+import {Sequelize} from "sequelize-typescript";
+import {UserEntity} from "./entities/User-entity";
+import {ProductEntity} from "./entities/Product-entity";
+import {OrderEntity} from "./entities/Order-entity";
+import {OrderDetailEntity} from "./entities/OrderDetail-entity";
 
-export const sequelize = new Sequelize(
-    config.sql.database,
-    config.sql.user,
-    config.sql.password,
-    {
-        host: config.sql.host,
-        dialect: 'mysql',
-        logging: false,
-    }
-);
+export class Database {
+    private static instance: Sequelize;
 
-export const connectDatabase = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log("Connected database");
-    } catch (error) {
-        console.log(error);
+    private constructor() {
     }
-};
+
+    public static getInstance(): Sequelize {
+        if (!Database.instance) {
+            Database.instance = new Sequelize({
+                dialect: 'mssql',
+                logging: false,
+                port: 1433,
+                database: config.sql.database,
+                username: config.sql.user,
+                password: config.sql.password,
+                host: config.sql.host,
+                schema: 'stores',
+                models: [UserEntity, ProductEntity, OrderEntity, OrderDetailEntity],
+            });
+        }
+        return Database.instance;
+    }
+
+    public static connect() {
+        Database.getInstance().authenticate().then(() => console.log('Connect SQL Server')
+        ).catch((e) => console.error('Error Connect SQL Server:', e));
+    }
+}

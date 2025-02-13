@@ -3,20 +3,21 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const config = {
-    port: process.env.PORT || "4000",
+    port: process.env.PORT || "3000",
     sql: {
-        database: process.env.DB_NAME || "default_db",
-        user: process.env.DB_USER || "root",
-        password: process.env.DB_PASS || "",
-        host: process.env.DB_HOST || "localhost",
+        database: process.env.MSSQL_DB || "boxit",
+        user: process.env.MSSQL_USER || "SA",
+        password: process.env.SA_PASSWORD,
+        host: process.env.MSSQL_HOST || "mssql",
     },
     mongo: {
-        uri: process.env.MONGO_URI || "mongodb://localhost:27017/default_db",
+        uri: process.env.MONGO_URI || "mongodb://mongodb:27017/boxit_log",
+        logDb: process.env.MONGO_DB || "boxit_log",
     },
     tables: {
-        users: 'users',
-        products: 'products',
-        orders: 'orders',
-        orderDetails: 'orderDetails',
+        users: 'Users',
+        products: 'Products',
+        orders: 'Orders',
+        orderDetails: 'OrderDetails',
     }
 };

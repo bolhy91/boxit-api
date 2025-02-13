@@ -1,25 +1,34 @@
-import {sequelize} from "../SqlSeverDatabase";
 import {DataTypes} from "sequelize";
-import {config} from "../../../config/dotenv";
-import {UserEntity} from "./User-entity";
 import {OrderEntity} from "./Order-entity";
 import {ProductEntity} from "./Product-entity";
+import {Column, Model, Table} from "sequelize-typescript";
+import {config} from "../../../config/dotenv";
 
-export const OrderDetailEntity = sequelize.define(
-    config.tables.orderDetails, {
-        id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
-        order_id: {
-            type: DataTypes.INTEGER, allowNull: false, references: {
-                model: OrderEntity, key: 'id'
-            }
-        },
-        product_id: {
-            type: DataTypes.INTEGER, allowNull: false,
-            references: {
-                model: ProductEntity, key: 'id'
-            }
-        },
-        quantity: {type: DataTypes.INTEGER, allowNull: false},
-        price_unit: {type: DataTypes.DOUBLE, allowNull: false},
-    }
-);
+@Table({
+    tableName: config.tables.orderDetails,
+    modelName: 'OrderDetails',
+    timestamps: false,
+})
+export class OrderDetailEntity extends Model {
+    @Column({type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true})
+    id!: number;
+    @Column({
+        field: 'order_id',
+        type: DataTypes.INTEGER, allowNull: false, references: {
+            model: OrderEntity, key: 'id'
+        }
+    })
+    orderId!: number;
+    @Column({
+        field: 'product_id',
+        type: DataTypes.INTEGER, allowNull: false,
+        references: {
+            model: ProductEntity, key: 'id'
+        }
+    })
+    productId!: number;
+    @Column({type: DataTypes.INTEGER, allowNull: false})
+    quantity!: number;
+    @Column({field: 'price_unit', type: DataTypes.DOUBLE, allowNull: false})
+    price!: number;
+}

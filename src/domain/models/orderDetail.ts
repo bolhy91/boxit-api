@@ -1,5 +1,5 @@
-import {Order} from "./Order";
-import {Product} from "./Product";
+import {Order} from "./order";
+import {Product} from "./product";
 
 export class OrderDetail {
     constructor(
