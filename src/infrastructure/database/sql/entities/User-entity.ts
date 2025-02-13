@@ -2,7 +2,7 @@ import {Column, DataType, Model, Table} from "sequelize-typescript";
 
 @Table({
     tableName: 'Users',
-    modelName: "User",
+    modelName: "Users",
     timestamps: false,
 })
 export class UserEntity extends Model {

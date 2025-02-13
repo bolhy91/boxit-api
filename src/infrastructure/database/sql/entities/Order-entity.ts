@@ -3,10 +3,11 @@ import {UserEntity} from "./User-entity";
 import {BelongsTo, Column, HasMany, Model, Table} from "sequelize-typescript";
 import {config} from "../../../config/dotenv";
 import {OrderDetailEntity} from "./OrderDetail-entity";
+import {OrderDetail} from "../../../../domain/models/orderDetail";
 
 @Table({
     tableName: config.tables.orders,
-    modelName: 'Order',
+    modelName: 'Orders',
     timestamps: false,
 })
 export class OrderEntity extends Model {
@@ -25,9 +26,9 @@ export class OrderEntity extends Model {
 
     items!: OrderDetailEntity[]
 
-    @HasMany(() => OrderEntity)
-    orderDetails: OrderEntity[] | undefined;
+    @HasMany(() => OrderDetailEntity, {foreignKey: 'orderId'})
+    orderDetails!: OrderDetailEntity[];
 
-    @BelongsTo(() => UserEntity)
+    @BelongsTo(() => UserEntity, {foreignKey: 'userId'})
     user!: UserEntity;
 }

@@ -3,7 +3,7 @@ import {Product} from "../models/product";
 export interface IProductRepository {
     getProducts(): Promise<Product[]>;
 
-    getProductById(id: number): Promise<Product>;
+    getProductById(id: number): Promise<Product | null>;
 
     createProduct(product: Product): Promise<Product>
 

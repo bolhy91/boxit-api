@@ -1,4 +1,5 @@
 import Joi from "joi";
+import {RequestNotValidException} from "../../../domain/exceptions/RequestNotValidException";
 
 export class CreateProductDTO {
     static schema = Joi.object({
@@ -11,7 +12,8 @@ export class CreateProductDTO {
     static validate(data: any) {
         const {error, value} = this.schema.validate(data, {abortEarly: false});
         if (error) {
-            throw new Error(error.details.map((err) => err.message).join(', '));
+            const errors = error.details.map((err) => err.message).join(', ')
+            throw new RequestNotValidException(errors);
         }
         return value;
     }

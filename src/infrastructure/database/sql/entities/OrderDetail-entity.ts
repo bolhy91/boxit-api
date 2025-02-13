@@ -14,7 +14,8 @@ export class OrderDetailEntity extends Model {
     id!: number;
     @Column({
         field: 'order_id',
-        type: DataTypes.INTEGER, allowNull: false, references: {
+        type: DataTypes.INTEGER, allowNull: false,
+        references: {
             model: OrderEntity, key: 'id'
         }
     })
@@ -32,6 +33,9 @@ export class OrderDetailEntity extends Model {
     @Column({field: 'price_unit', type: DataTypes.DOUBLE, allowNull: false})
     price!: number;
 
-    @BelongsTo(() => ProductEntity)
+    @BelongsTo(() => ProductEntity, {foreignKey: 'productId'})
     product!: ProductEntity;
+
+    @BelongsTo(() => OrderEntity, {foreignKey: 'orderId'})
+    order!: OrderEntity;
 }

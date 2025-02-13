@@ -5,7 +5,7 @@ import {config} from "../../../config/dotenv";
 
 @Table({
     tableName: config.tables.products,
-    modelName: 'Product',
+    modelName: 'Products',
     timestamps: false,
 })
 export class ProductEntity extends Model {
