@@ -5,13 +5,13 @@ import {OrderDetailEntity} from "../database/sql/entities/OrderDetail-entity";
 import {OrderDetail} from "../../domain/models/orderDetail";
 import {ProductEntity} from "../database/sql/entities/Product-entity";
 import {Product} from "../../domain/models/product";
-import {model} from "mongoose";
+import {User} from "../../domain/models/user";
 
 export class OrderMapper implements IMapper<Order, OrderEntity> {
     dtoToDomainOrEntity(model: any): Order | OrderEntity {
         const entity = new OrderEntity();
         entity.userId = model.userId;
-        entity.date = model.date;
+        entity.date = new Date().toISOString().slice(0, 19).replace("T", " ");
         entity.total = model.total;
         entity.items = this.mapOrderDetailEntity(entity.id, model.items)
         return entity;
@@ -21,9 +21,8 @@ export class OrderMapper implements IMapper<Order, OrderEntity> {
     DomainToEntity(model: Order): OrderEntity {
         const entity = new OrderEntity();
         entity.userId = model.user.id;
-        entity.date = model.date;
+        entity.date = new Date().toISOString().slice(0, 19).replace("T", " ");;
         entity.total = model.total;
-        entity.items = this.mapOrderDetailEntity(entity.id, model.items);
         return entity;
     }
 
@@ -48,11 +47,11 @@ export class OrderMapper implements IMapper<Order, OrderEntity> {
     }
 
     mapOrderDetailEntity(id: number, items: any): OrderDetailEntity[] {
-        return items.map((item: { productId: number; quantity: number; price: number; }) => ({
+        return items.map((item: { productId: number; quantity: number; priceUnit: number; }) => ({
             orderId: id,
             productId: item.productId,
             quantity: item.quantity,
-            price: item.price,
+            price: item.priceUnit,
         }));
     }
 

@@ -20,8 +20,8 @@ export class OrderEntity extends Model {
         }
     })
     userId!: number;
-    @Column({type: DataTypes.DATE, allowNull: false})
-    date!: Date;
+    @Column({type: DataTypes.STRING, allowNull: false})
+    date!: string;
     @Column({type: DataTypes.DOUBLE, allowNull: false})
     total!: number;
 

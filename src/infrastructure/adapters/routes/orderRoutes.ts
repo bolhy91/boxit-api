@@ -16,5 +16,12 @@ export class OrderRoutes extends AppRoute {
                 next(error);
             }
         });
+        this.route.post('/', async (req, res, next) => {
+            try {
+                await orderFactory.create(req, res);
+            } catch (error) {
+                next(error);
+            }
+        });
     }
 }
