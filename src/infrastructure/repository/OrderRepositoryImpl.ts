@@ -17,7 +17,7 @@ export class OrderRepositoryImpl implements IOrderRepository {
 
     async getOrders(filter: OrderFilter): Promise<Order[]> {
         try {
-            const condition = filter?.user != undefined ? {name: {[Op.like]: `%${filter.user}%`}} : {};
+            const condition = filter?.user != undefined ? {name: {[Op.like]: `%${filter.user.toLowerCase()}%`}} : {};
             const orders = await OrderEntity.findAll({
                 include: [
                     {
