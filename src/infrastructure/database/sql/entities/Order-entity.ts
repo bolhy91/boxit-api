@@ -1,7 +1,8 @@
 import {DataTypes} from "sequelize";
 import {UserEntity} from "./User-entity";
-import {Column, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, HasMany, Model, Table} from "sequelize-typescript";
 import {config} from "../../../config/dotenv";
+import {OrderDetailEntity} from "./OrderDetail-entity";
 
 @Table({
     tableName: config.tables.orders,
@@ -21,4 +22,12 @@ export class OrderEntity extends Model {
     date!: Date;
     @Column({type: DataTypes.DOUBLE, allowNull: false})
     total!: number;
+
+    items!: OrderDetailEntity[]
+
+    @HasMany(() => OrderEntity)
+    orderDetails: OrderEntity[] | undefined;
+
+    @BelongsTo(() => UserEntity)
+    user!: UserEntity;
 }

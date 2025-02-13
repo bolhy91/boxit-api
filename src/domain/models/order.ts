@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {OrderDetail} from "./orderDetail";
 
 export class Order {
     constructor(
@@ -6,6 +7,7 @@ export class Order {
         public user: User,
         public date: Date,
         public total: number,
+        public items: OrderDetail[],
     ) {
     }
 }

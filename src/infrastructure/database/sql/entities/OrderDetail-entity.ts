@@ -1,7 +1,7 @@
 import {DataTypes} from "sequelize";
 import {OrderEntity} from "./Order-entity";
 import {ProductEntity} from "./Product-entity";
-import {Column, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, Model, Table} from "sequelize-typescript";
 import {config} from "../../../config/dotenv";
 
 @Table({
@@ -31,4 +31,7 @@ export class OrderDetailEntity extends Model {
     quantity!: number;
     @Column({field: 'price_unit', type: DataTypes.DOUBLE, allowNull: false})
     price!: number;
+
+    @BelongsTo(() => ProductEntity)
+    product!: ProductEntity;
 }
