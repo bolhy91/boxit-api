@@ -39,6 +39,7 @@ MSSQL_PID=Developer
 MONGO_URI=mongodb://mongodb:27017/boxit_log
 MONGO_DB=boxit_log
 ```
+Crear un archivo .env en la raiz del proyecto.
 
 3. Ejecutar con Docker Compose
 
