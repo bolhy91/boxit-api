@@ -13,7 +13,7 @@ permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real
 - WebSockets (SocketIO)
 
 ## Demo
-[![Ver el video](https://img.youtube.com/owkM1DgPwO0/0.jpg)](https://youtu.be/owkM1DgPwO0)
+[![Ver el video](https://img.youtube.com/vi/owkM1DgPwO0/0.jpg)](https://youtu.be/owkM1DgPwO0)
 
 
 
