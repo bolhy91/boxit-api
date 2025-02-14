@@ -13,7 +13,8 @@ permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real
 - WebSockets (SocketIO)
 
 ## Demo
-[![Video](https://raw.githubusercontent.com/bolhy91/boxit-api/main/demo/demo.mov)](https://github.com/bolhy91/boxit-api/blob/main/demo/demo.mov)
+[![Ver el video](https://img.youtube.com/vi/vXdviDxir30/0.jpg)](https://youtu.be/vXdviDxir30)
+
 
 
 ## Instalación y Ejecución
