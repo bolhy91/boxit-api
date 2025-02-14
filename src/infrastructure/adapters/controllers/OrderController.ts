@@ -45,7 +45,7 @@ export class OrderController {
             await Logger.create({action: 'ERROR_CREATE_ORDER', data: e});
             return res.status(500).json(e);
         } finally {
-            const reports = await this.getReportUseCase.execute()
+            const reports = await this.getReportUseCase.execute();
             io.emit("live_reports", reports);
         }
     }
