@@ -1,9 +1,13 @@
 import {OrderControllerFactory} from "../../../application/factories/OrderControllerFactory";
 import {AppRoute} from "./AppRoute";
+import {Server as SocketIOServer} from "socket.io";
 
 export class OrderRoutes extends AppRoute {
-    constructor() {
+    private readonly io: SocketIOServer;
+
+    constructor(io: SocketIOServer) {
         super();
+        this.io = io;
         this.init();
     }
 
@@ -18,7 +22,7 @@ export class OrderRoutes extends AppRoute {
         });
         this.route.post('/', async (req, res, next) => {
             try {
-                await orderFactory.create(req, res);
+                await orderFactory.create(req, res, this.io);
             } catch (error) {
                 next(error);
             }

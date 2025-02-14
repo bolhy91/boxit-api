@@ -48,7 +48,7 @@ class Server {
         });
         const productRoutes = new ProductRoutes();
         this.app.use("/products", productRoutes.getRouter());
-        const orderRoutes = new OrderRoutes();
+        const orderRoutes = new OrderRoutes(this.io);
         this.app.use("/orders", orderRoutes.getRouter());
 
         this.app.get("/reports", async (req: Request, res: Response) => {

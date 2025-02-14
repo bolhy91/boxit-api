@@ -7,6 +7,7 @@ import {ValidateStockException} from "../../../domain/exceptions/ValidateStockEx
 import {CreateOrderDTO} from "../dtos/CreateOrderDTO";
 import {Logger} from "../../database/mongodb/models/LogEntity";
 import {GetReportUseCase} from "../../../application/usecases/reports/GetReportUseCase";
+import {Server as SocketIOServer} from "socket.io";
 
 export class OrderController {
     constructor(
@@ -20,16 +21,14 @@ export class OrderController {
         try {
             const filter = new OrderFilter(req.query.user?.toString() || undefined);
             const orders = await this.getListOrderUseCase.execute(filter);
-            const v  = await this.getReportUseCase.execute()
-            console.log(v)
-            return res.status(200).json(v);
+            return res.status(200).json(orders);
         } catch (e) {
             console.log(e)
             return res.status(500).end();
         }
     }
 
-    async create(req: Request, res: Response) {
+    async create(req: Request, res: Response, io: SocketIOServer) {
         try {
             const validator = CreateOrderDTO.validate(req.body);
             const order = await this.createOrderUseCase.execute(validator);
@@ -45,6 +44,9 @@ export class OrderController {
             }
             await Logger.create({action: 'ERROR_CREATE_ORDER', data: e});
             return res.status(500).json(e);
+        } finally {
+            const reports = await this.getReportUseCase.execute()
+            io.emit("live_reports", reports);
         }
     }
 }
