@@ -13,7 +13,7 @@ permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real
 - WebSockets (SocketIO)
 
 ## Demo
-[![Ver el video](https://img.youtube.com/vi/vXdviDxir30/0.jpg)](https://youtu.be/vXdviDxir30)
+[![Ver el video](https://img.youtube.com/owkM1DgPwO0/0.jpg)](https://youtu.be/owkM1DgPwO0)
 
 
 
@@ -42,6 +42,10 @@ MONGO_DB=boxit_log
 Crear un archivo .env en la raiz del proyecto.
 
 3. Ejecutar con Docker Compose
+
+Se implementa Dockerfile y docker-compose.yml para crear un ambiente de desarrollo y poder trabajar con **Mongodb** y **Sql Server**.
+En el docker-compose.yml puede ver la configuraciones para usar estas base de datos. 
+Solo debe tener instalado docker y correr el siguiente comando en su terminal:
 
 ```sh
 docker-compose up -d
