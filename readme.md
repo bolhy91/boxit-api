@@ -12,6 +12,10 @@ permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real
 - JWT para autenticación
 - WebSockets (SocketIO)
 
+## Demo
+[![Video](https://raw.githubusercontent.com/bolhy91/boxit-api/main/demo/demo.mov)](https://github.com/bolhy91/boxit-api/blob/main/demo/demo.mov)
+
+
 ## Instalación y Ejecución
 
 1. Clonar el repositorio
@@ -67,6 +71,39 @@ ws://localhost:3000
 _**En events (Postman) debe escuchar el evento `live_reports` y le da click a **Connect**. Con esto podra escuchar el
 evento
 y cuando se cree un pedido nuevo se envia el reporte al socket con las estadisticas nuevas.**_
+
+Respuesta en el socket:
+```json
+{
+    "users": [
+        {
+            "UserId": 3,
+            "UserName": "marcos",
+            "TotalOrders": 12,
+            "TotalSpent": 9030
+        },
+        {
+            "UserId": 1,
+            "UserName": "Alejandra",
+            "TotalOrders": 2,
+            "TotalSpent": 1000
+        },
+        {
+            "UserId": 2,
+            "UserName": "Katherin",
+            "TotalOrders": 2,
+            "TotalSpent": 900
+        }
+    ],
+    "sales": {
+        "TotalSales": 10930,
+        "TopProductID": 2,
+        "TopProductName": "Product 2",
+        "TopProductQuantity": 1180
+    },
+    "totalSales": 10930
+}
+```
 
 ### Autenticación
 
