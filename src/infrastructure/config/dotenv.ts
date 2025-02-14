@@ -22,5 +22,8 @@ export const config = {
     },
     procedure: {
         reports: "stores.GetSalesReports"
+    },
+    jwt: {
+        secret: "MY_SECRET"
     }
 };
