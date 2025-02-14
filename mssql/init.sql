@@ -1,6 +1,4 @@
-CREATE DATABASE boxit;
-GO
-use boxit;
+use master;
 GO
 CREATE SCHEMA stores;
 GO
@@ -25,7 +23,7 @@ CREATE TABLE stores.Orders
 (
     id      INT PRIMARY KEY IDENTITY (1,1),
     user_id INT            NOT NULL,
-    date    DATETIME       NOT NULL,
+    date    NVARCHAR(255)       NOT NULL,
     total   DECIMAL(10, 2) NOT NULL,
     CONSTRAINT FK_Orders_Users FOREIGN KEY (user_id) REFERENCES stores.Users (id)
 );

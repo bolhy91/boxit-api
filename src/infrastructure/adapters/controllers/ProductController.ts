@@ -7,6 +7,7 @@ import {RemoveByIdProductUseCase} from "../../../application/usecases/products/r
 import {CreateProductDTO} from "../dtos/CreateProductDTO";
 import {RequestNotValidException} from "../../../domain/exceptions/RequestNotValidException";
 import {ItemNotFoundException} from "../../../domain/exceptions/ItemNotFoundException";
+import {Logger} from "../../database/mongodb/models/LogEntity";
 
 export class ProductController {
     constructor(
@@ -40,11 +41,14 @@ export class ProductController {
         try {
             const validator = CreateProductDTO.validate(req.body);
             const product = await this.createProductUseCase.execute(validator);
+            await Logger.create({action: 'CREATE_PRODUCT', data: product.toString()});
             return res.status(201).json(product);
         } catch (e) {
             if (e instanceof RequestNotValidException) {
+                await Logger.create({action: "ERROR_CREATE_PRODUCT_VALIDATION", data: e.message});
                 return res.status(400).json({message: e.message});
             }
+            await Logger.create({action: "ERROR_CREATE_PRODUCT", data: e});
             return res.status(500).json(e);
         }
     }
@@ -53,6 +57,7 @@ export class ProductController {
         try {
             const validator = CreateProductDTO.validate(req.body);
             const product = await this.updateProductUseCase.execute(Number(req.params.id), validator);
+            await Logger.create({action: 'UPDATE_PRODUCT', data: product});
             return res.status(200).json(product);
         } catch (e) {
             if (e instanceof RequestNotValidException) {
@@ -60,6 +65,7 @@ export class ProductController {
             } else if (e instanceof ItemNotFoundException) {
                 return res.status(404).json({message: e.message})
             }
+            await Logger.create({action: 'ERROR_UPDATE_PRODUCT', data: e});
             return res.status(500).json(e);
         }
     }

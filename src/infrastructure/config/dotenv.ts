@@ -5,7 +5,7 @@ dotenv.config();
 export const config = {
     port: process.env.PORT || "3000",
     sql: {
-        database: process.env.MSSQL_DB || "boxit",
+        database: process.env.MSSQL_DB || "master",
         user: process.env.MSSQL_USER || "SA",
         password: process.env.SA_PASSWORD,
         host: process.env.MSSQL_HOST || "mssql",
@@ -19,5 +19,8 @@ export const config = {
         products: 'Products',
         orders: 'Orders',
         orderDetails: 'OrderDetails',
+    },
+    procedure: {
+        reports: "stores.GetSalesReports"
     }
 };

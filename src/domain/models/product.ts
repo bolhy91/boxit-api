@@ -8,4 +8,8 @@ export class Product {
         public category: string
     ) {
     }
+
+    toString(): string {
+        return `Product [ID: ${this.id}, Name: ${this.name}, Price: ${this.price}, Stock: ${this.stock}, Category: ${this.category}]`;
+    }
 }

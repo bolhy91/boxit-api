@@ -10,4 +10,7 @@ export class Order {
         public items: OrderDetail[],
     ) {
     }
+    toString(): string {
+        return `Order ID: ${this.id}, User: ${this.user.name}, Date: ${this.date}, Total: ${this.total}, Items: [${this.items.map(item => item.toString()).join(', ')}]`;
+    }
 }

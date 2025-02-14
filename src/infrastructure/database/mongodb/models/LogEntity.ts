@@ -3,7 +3,7 @@ import {config} from "../../../config/dotenv";
 
 const logSchema = new mongoose.Schema({
     action: String,
-    data: Object,
+    data: String,
     timestamp: {type: Date, default: Date.now()},
 });
 
