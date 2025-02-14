@@ -1,7 +1,8 @@
 # Boxit API - Documentación
 
-
-Este proyecto es una API REST desarrollada con Express.js y TypeScript siguiendo la arquitectura hexagonal. Utiliza SQL Server con Sequelize para la base de datos principal y MongoDB para el almacenamiento de logs de actividad. La API permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real.
+Este proyecto es una API REST desarrollada con Express.js y TypeScript siguiendo la arquitectura hexagonal. Utiliza SQL
+Server con Sequelize para la base de datos principal y MongoDB para el almacenamiento de logs de actividad. La API
+permite gestionar productos, usuarios, pedidos y generar reportes en tiempo real.
 
 - Node.js con Express.js
 - TypeScript
@@ -12,11 +13,15 @@ Este proyecto es una API REST desarrollada con Express.js y TypeScript siguiendo
 - WebSockets (SocketIO)
 
 ## Instalación y Ejecución
+
 1. Clonar el repositorio
+
 ```sh
 https://github.com/bolhy91/boxit-api
 ```
+
 2. Configurar Variables de Entorno
+
 ```sh
 NODE_ENV=development
 PORT=3000
@@ -29,37 +34,59 @@ MSSQL_PID=Developer
 MONGO_URI=mongodb://mongodb:27017/boxit_log
 MONGO_DB=boxit_log
 ```
+
 3. Ejecutar con Docker Compose
+
 ```sh
 docker-compose up -d
 ```
+
 Esto iniciará los servicios necesarios (API, SQL Server y MongoDB).
+
 4. Migrar archivos SQL
+
 ```sh
 /mssql/init.sql
 /mssql/procedure.sql
 /mssql/insertFake.sql
 ```
+
 Docker corriendo puede proceder a ejecutar los SQL para migrar tablas y procedimiento almacenado.
 **Opcional**: _Puede ejecutar el archivo insertFake.sql para migrar alguna data de ejemplo._
 
 ## Endpoints de la API
+
+### Reportes en Vivo
+
+Para conectarse al reporte debe conectarse en Postman:
+
+```http request
+ws://localhost:3000
+```
+
+_**En events (Postman) debe escuchar el evento `live_reports` y le da click a **Connect**. Con esto podra escuchar el
+evento
+y cuando se cree un pedido nuevo se envia el reporte al socket con las estadisticas nuevas.**_
+
 ### Autenticación
 
 ```http request
 POST /users/login
 ```
+
 ```json
 {
-    "email": "bebeto10@gmail.com",
-    "password": "123456"
+  "email": "bebeto10@gmail.com",
+  "password": "123456"
 }
 ```
+
 #### Registro Usuario
 
 ```http request
 PATCH /users/register
 ```
+
 ```json
 {
   "name": "William",
@@ -67,11 +94,13 @@ PATCH /users/register
   "password": "123456"
 }
 ```
+
 ### Crear Pedido
 
 ```http request
 POST /orders
 ```
+
 ```json
 {
   "userId": 1,
@@ -86,6 +115,7 @@ POST /orders
   ]
 }
 ```
+
 ### Listar Pedido o Buscar por usuario
 
 ```http request
@@ -97,22 +127,23 @@ GET /orders o /orders?user=bebeto
 ```http request
 GET /products
 ```
+
 ```json
 [
-    {
-        "id": 1,
-        "name": "Product 1",
-        "price": 110,
-        "stock": 2000,
-        "category": "Nada"
-    },
-    {
-        "id": 2,
-        "name": "Product 2",
-        "price": 500,
-        "stock": 220,
-        "category": "phone"
-    }
+  {
+    "id": 1,
+    "name": "Product 1",
+    "price": 110,
+    "stock": 2000,
+    "category": "Nada"
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "price": 500,
+    "stock": 220,
+    "category": "phone"
+  }
 ]
 ```
 
@@ -121,6 +152,7 @@ GET /products
 ```http request
 GET /products/1
 ```
+
 ### Remover Producto por ID
 
 ```http request
@@ -134,12 +166,13 @@ POST /products
 ```
 
 PAYLOAD
+
 ```json
 {
-    "name": "Product 1",
-    "price": 110.00,
-    "stock": 2000,
-    "category": "air cool"
+  "name": "Product 1",
+  "price": 110.00,
+  "stock": 2000,
+  "category": "air cool"
 }
 ```
 
@@ -148,13 +181,15 @@ PAYLOAD
 ```http request
 PATCH /products/1
 ```
+
 PAYLOAD
+
 ```json
 {
-    "name": "Product 1",
-    "price": 110.00,
-    "stock": 2000,
-    "category": "air cool"
+  "name": "Product 1",
+  "price": 110.00,
+  "stock": 2000,
+  "category": "air cool"
 }
 ```
 ## License
